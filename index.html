@@ -1,80 +1,413 @@
 <!DOCTYPE html>
-    <div class="card">
-        <div class="label">Progress Along Route</div>
-        <div class="progress-container">
-            <div class="progress-bar" id="routeProgress"></div>
-        </div>
-        <div id="routeProgressText" style="margin-top:8px;">0%</div>
-    </div>
-
-    <div class="card">
-        <div class="label">Stops</div>
-        <div id="stops"></div>
-    </div>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no">
+<title>Bello Railway Tracker</title>
+<style>
+body {
+margin: 0;
+background: #0f1115;
+    color: white;
+font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+overflow: hidden;
+}
+#app {
+padding: 18px;
+}
+h1 {
+text-align: center;
+margin-top: 6px;
+font-size: 28px;
+}
+.card {
+background: #1a1d24;
+border-radius: 18px;
+padding: 16px;
+margin-bottom: 16px;
+box-shadow: 0 0 18px rgba(0,0,0,0.4);
+}
+.big-distance {
+text-align: center;
+font-size: 48px;
+font-weight: bold;
+margin-top: 10px;
+}
+.label {
+opacity: 0.7;
+margin-bottom: 8px;
+}
+.arrow-wrap {
+display: flex;
+justify-content: center;
+align-items: center;
+position: relative;
+height: 220px;
+}
+.arrow {
+font-size: 120px;
+transition: transform 0.2s linear;
+}
+.center-marker {
+position: absolute;
+width: 10px;
+    height: 10px;
+background: #00ff88;
+border-radius: 50%;
+}
+.rail-arrow {
+color: #4aa3ff;
+}
+.route-arrow {
+color: #ffcc00;
+}
+.progress-container {
+width: 100%;
+height: 22px;
+background: #2a2f38;
+border-radius: 999px;
+overflow: hidden;
+}
+.progress-bar {
+height: 100%;
+background: linear-gradient(90deg, #00ff88, #00aaff);
+width: 0%;
+}
+.stop {
+margin-bottom: 16px;
+}
+.stop-name {
+margin-bottom: 6px;
+}
+#popup {
+position: fixed;
+top: 20px;
+left: 20px;
+right: 20px;
+background: #00aaff;
+color: white;
+padding: 18px;
+border-radius: 18px;
+text-align: center;
+font-size: 22px;
+display: none;
+z-index: 999;
+}
+.small {
+    opacity: 0.7;
+font-size: 14px;
+}
+</style>
+</head>
+<body>
+<button id="startBtn" style="
+position:fixed;
+top:20px;
+right:20px;
+z-index:9999;
+padding:16px 22px;
+font-size:18px;
+border:none;
+border-radius:16px;
+background:#00aaff;
+color:white;
+font-weight:bold;
+">
+Start GPS
+</button>
+<div id="popup"></div>
+<div id="app">
+<h1>Bello Railway</h1>
+<div class="card">
+<div class="label">Distance to Railway</div>
+<div class="big-distance" id="distance">-- m</div>
 </div>
-
+<div class="card">
+<div class="label">Direction to Nearest Railway Point</div>
+<div class="arrow-wrap">
+<div class="center-marker"></div>
+<div class="arrow route-arrow" id="routeArrow">↑</div>
+</div>
+<div class="small" style="text-align:center;">
+Face the arrow toward the railway
+</div>
+</div>
+<div class="card">
+<div class="label">Railway Direction</div>
+<div class="arrow-wrap">
+<div class="center-marker"></div>
+<div class="arrow rail-arrow" id="railArrow">↑</div>
+</div>
+<div class="small" style="text-align:center;">
+Align your phone with this direction
+</div>
+</div>
+<div class="card">
+<div class="label">Progress Along Route</div>
+<div class="progress-container">
+<div class="progress-bar" id="routeProgress"></div>
+</div>
+<div id="routeProgressText" style="margin-top:8px;">0%</div>
+</div>
+<div class="card">
+<div class="label">Stops</div>
+<div id="stops"></div>
+</div>
+</div>
 <script>
 let userLat = null;
 let userLon = null;
 let heading = 0;
-
 let route = [];
 let routeDistances = [];
 let totalRouteLength = 0;
 let stops = [];
 let dunes = [];
-
 const popup = document.getElementById('popup');
-
 function toRad(v) {
-    return v * Math.PI / 180;
+return v * Math.PI / 180;
 }
-
 function toDeg(v) {
-    return v * 180 / Math.PI;
+return v * 180 / Math.PI;
 }
-
 function haversine(lat1, lon1, lat2, lon2) {
-    const R = 6371000;
-
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-
-    const a =
-        Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-
-    return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+const R = 6371000;
+const dLat = toRad(lat2 - lat1);
+const dLon = toRad(lon2 - lon1);
+const a =
+Math.sin(dLat/2) * Math.sin(dLat/2) +
+Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+Math.sin(dLon/2) * Math.sin(dLon/2);
+return 2 * R * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
-
 function bearing(lat1, lon1, lat2, lon2) {
-    const y = Math.sin(toRad(lon2-lon1)) * Math.cos(toRad(lat2));
-    const x =
-        Math.cos(toRad(lat1))*Math.sin(toRad(lat2)) -
-        Math.sin(toRad(lat1))*Math.cos(toRad(lat2))*Math.cos(toRad(lon2-lon1));
-
-    return (toDeg(Math.atan2(y, x)) + 360) % 360;
+const y = Math.sin(toRad(lon2-lon1)) * Math.cos(toRad(lat2));
+const x =
+Math.cos(toRad(lat1))*Math.sin(toRad(lat2)) -
+Math.sin(toRad(lat1))*Math.cos(toRad(lat2))*Math.cos(toRad(lon2-
+lon1));
+return (toDeg(Math.atan2(y, x)) + 360) % 360;
 }
-
 function rotateArrow(element, targetBearing) {
-    const relative = targetBearing - heading;
-    element.style.transform = `rotate(${relative}deg)`;
+const relative = targetBearing - heading;
+element.style.transform = `rotate(${relative}deg)`;
 }
-
-async function loadKML() {
-    const text = await fetch('Bello.kml').then(r => r.text());
-
-    const parser = new DOMParser();
-    const xml = parser.parseFromString(text, 'text/xml');
-
-    const placemarks = xml.getElementsByTagName('Placemark');
-
-    let pathSegments = [];
-
-    for (const pm of placemarks) {
-        const name = pm.getElementsByTagName('name')[0]?.textContent || '';
-
-        const lineString = pm.getElementsByTagName('LineString')[0];
-        const point = pm.getElementsByTagName('Point')[0];
+    async function loadKML() {
+const text = await fetch('Bello.kml').then(r => r.text());
+const parser = new DOMParser();
+const xml = parser.parseFromString(text, 'text/xml');
+const placemarks = xml.getElementsByTagName('Placemark');
+let pathSegments = [];
+for (const pm of placemarks) {
+const name = pm.getElementsByTagName('name')[0]?.textContent || '';
+const lineString = pm.getElementsByTagName('LineString')[0];
+const point = pm.getElementsByTagName('Point')[0];
+if (lineString) {
+const coordsText = lineString
+.getElementsByTagName('coordinates')[0]
+.textContent
+.trim();
+const coords = coordsText
+.split(/\s+/)
+.map(c => {
+const [lon, lat] = c.split(',').map(Number);
+return {lat, lon};
+});
+pathSegments.push(coords);
+}
+if (point) {
+const coordText = point
+.getElementsByTagName('coordinates')[0]
+.textContent
+.trim();
+const [lon, lat] = coordText.split(',').map(Number);
+if (name.toLowerCase().includes('duin')) {
+dunes.push({name, lat, lon, triggered: false});
+} else {
+stops.push({name, lat, lon});
+}
+}
+}
+mergeSegments(pathSegments);
+buildStopUI();
+        }
+function mergeSegments(segments) {
+if (segments.length === 0) return;
+route = [...segments[0]];
+for (let i = 1; i < segments.length; i++) {
+const seg = segments[i];
+const end = route[route.length - 1];
+const d1 = haversine(end.lat, end.lon, seg[0].lat, seg[0].lon);
+const d2 = haversine(end.lat, end.lon, seg[seg.length - 1].lat,
+seg[seg.length - 1].lon);
+if (d2 < d1) seg.reverse();
+route.push(...seg);
+}
+totalRouteLength = 0;
+routeDistances = [0];
+for (let i = 1; i < route.length; i++) {
+totalRouteLength += haversine(
+route[i-1].lat,
+route[i-1].lon,
+route[i].lat,
+route[i].lon
+);
+routeDistances.push(totalRouteLength);
+}
+}
+function nearestPointOnRoute(lat, lon) {
+let bestIndex = 0;
+let bestDist = Infinity;
+for (let i = 0; i < route.length; i++) {
+const d = haversine(lat, lon, route[i].lat, route[i].lon);
+if (d < bestDist) {
+bestDist = d;
+bestIndex = i;
+}
+}
+return {
+index: bestIndex,
+    point: route[bestIndex],
+distance: bestDist
+};
+}
+function buildStopUI() {
+const container = document.getElementById('stops');
+for (const stop of stops) {
+const div = document.createElement('div');
+div.className = 'stop';
+div.innerHTML =
+`
+<div class="stop-name">${stop.name}</div>
+<div class="progress-container">
+<div class="progress-bar" id="stop-${stop.name}"></div>
+</div>
+`;
+container.appendChild(div);
+}
+}
+function update() {
+if (userLat == null || route.length === 0) return;
+const nearest = nearestPointOnRoute(userLat, userLon);
+document.getElementById('distance').innerText =
+Math.round(nearest.distance) + ' m';
+const toRailBearing = bearing(
+userLat,
+userLon,
+nearest.point.lat,
+nearest.point.lon
+);
+rotateArrow(document.getElementById('routeArrow'), toRailBearing);
+let railBearing = 0;
+if (nearest.index < route.length - 1) {
+railBearing = bearing(
+route[nearest.index].lat,
+route[nearest.index].lon,
+route[nearest.index + 1].lat,
+route[nearest.index + 1].lon
+);
+}
+    rotateArrow(document.getElementById('railArrow'), railBearing);
+const progress = routeDistances[nearest.index] / totalRouteLength;
+document.getElementById('routeProgress').style.width =
+(progress * 100).toFixed(1) + '%';
+document.getElementById('routeProgressText').innerText =
+(progress * 100).toFixed(1) + '% complete';
+updateStops(nearest.index);
+checkDunes();
+}
+function updateStops(routeIndex) {
+const userProgress = routeDistances[routeIndex] / totalRouteLength;
+for (const stop of stops) {
+let nearestStopIndex = 0;
+let best = Infinity;
+for (let i = 0; i < route.length; i++) {
+const d = haversine(stop.lat, stop.lon, route[i].lat,
+route[i].lon);
+if (d < best) {
+best = d;
+nearestStopIndex = i;
+}
+}
+const stopProgress = routeDistances[nearestStopIndex] /
+totalRouteLength;
+let relative;
+if (userProgress >= stopProgress) {
+relative = 100;
+} else {
+relative = (userProgress / stopProgress) * 100;
+}
+const bar = document.getElementById(`stop-${stop.name}`);
+if (bar) {
+bar.style.width = Math.min(relative, 100) + '%';
+}
+}
+}
+function checkDunes() {
+    for (const dune of dunes) {
+if (dune.triggered) continue;
+const d = haversine(userLat, userLon, dune.lat, dune.lon);
+if (d < 100) {
+dune.triggered = true;
+popup.innerText = `You are entering ${dune.name}`
+;
+popup.style.display = 'block';
+setTimeout(() => {
+popup.style.display = 'none';
+}, 5000);
+}
+}
+}
+document.getElementById('startBtn').addEventListener('click', async () => {
+await enableOrientation();
+navigator.geolocation.watchPosition(pos => {
+userLat = pos.coords.latitude;
+userLon = pos.coords.longitude;
+update();
+}, err => {
+alert('GPS error: ' + err.message);
+}, {
+enableHighAccuracy: true,
+maximumAge: 1000,
+timeout: 10000
+});
+document.getElementById('startBtn').style.display = 'none';
+});
+if (typeof DeviceOrientationEvent !== 'undefined' &&
+typeof DeviceOrientationEvent.requestPermission === 'function') {
+document.body.addEventListener('click', async () => {
+try {
+await DeviceOrientationEvent.requestPermission();
+} catch(e) {}
+}, {once: true});
+}
+async function enableOrientation() {
+try {
+if (
+typeof DeviceOrientationEvent !== 'undefined' &&
+typeof DeviceOrientationEvent.requestPermission === 'function'
+) {
+const permission = await
+DeviceOrientationEvent.requestPermission();
+if (permission !== 'granted') {
+alert('Compass permission denied');
+return;
+}
+}
+window.addEventListener('deviceorientation', e => {
+if (e.webkitCompassHeading != null) {
+heading = e.webkitCompassHeading;
+} else if (e.alpha != null) {
+heading = 360 - e.alpha;
+}
+update();
+});
+} catch(err) {
+console.error(err);
+    }
+}
+loadKML();
+</script>
+</body>
 </html>
