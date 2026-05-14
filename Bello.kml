@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1fFukkgLtEI3jwJmWdAHPOaABX7bWdsD0">
+	<name>Bello</name>
+	<gx:CascadingStyle kml:id="__managed_style_2D862A4BB13F5DD088DE">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>3</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1E1245F4193F5DD088DE">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>2</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_018B2B6DC53F5DD088DE">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1E1245F4193F5DD088DE</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2D862A4BB13F5DD088DE</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="00877E01663C0ED4C468">
+		<name>Spoorlijn</name>
+		<LookAt>
+			<longitude>4.671154950959089</longitude>
+			<latitude>52.66577967609209</latitude>
+			<altitude>3.57983604455683</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>12374.4757971901</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<LineString>
+			<coordinates>
+				4.631162770973882,52.66172024080669,0 4.634134285279059,52.6621590159627,0 4.644443072529194,52.6638494709308,0 4.666542186017235,52.66816631003675,0 4.668167504505211,52.66842646648657,0 4.67055247174655,52.66855292689466,0 4.687502227524279,52.66811655348519,0 4.68968313441424,52.66811630157365,0 4.690705040522374,52.66813493359103,0 4.692647806595849,52.66841176165264,0 4.694619608238392,52.66875662385326,0 4.699051453657603,52.66989344581996,0 4.699637631391615,52.67002976334513,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark id="01EC7A207F3E5B03946B">
+		<name>Untitled path</name>
+		<snippet></snippet>
+		<LookAt>
+			<longitude>4.701015883168762</longitude>
+			<latitude>52.67096390049764</latitude>
+			<altitude>3.617510184061672</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>722.6050948620104</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<LineString>
+			<coordinates>
+				4.699638990323423,52.67002713748254,0 4.699972850061238,52.67011538235837,0 4.700371124326466,52.67016896223391,0 4.700744549044553,52.67017598441354,0 4.701244570766601,52.6701681016224,0 4.701676546324245,52.67015372344863,0 4.702068242457534,52.67010437326579,0 
+			</coordinates>
+		</LineString>
+	</Placemark>
+	<Placemark id="0C0538ADCC3E5B055BAC">
+		<name>Halte Oostdorp</name>
+		<LookAt>
+			<longitude>4.713556188615184</longitude>
+			<latitude>52.66730215734957</latitude>
+			<altitude>1.454151187424433</altitude>
+			<heading>0.4853181469024145</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>282.2471631219378</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.711668736652981,52.6671781844176,1.729337443926138</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="02E68A9BC73E5B06B893">
+		<name>Bergen station</name>
+		<LookAt>
+			<longitude>4.700658172025236</longitude>
+			<latitude>52.67066515419595</latitude>
+			<altitude>2.959489880935118</altitude>
+			<heading>0.4853181458007121</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>789.8567999675288</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.701370110691476,52.67008027551592,3.00722655171884</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="01FFDB19573E5B07624F">
+		<name>Halte Sparrenlan</name>
+		<LookAt>
+			<longitude>4.690434488742015</longitude>
+			<latitude>52.66819794384248</latitude>
+			<altitude>7.89957469029734</altitude>
+			<heading>0.4853181452990509</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>171.4386183443821</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.690410159292879,52.66814433803773,8.303351643085289</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0C33AFF7AB3E5B08A187">
+		<name>Halte De Franschman</name>
+		<LookAt>
+			<longitude>4.665906042294877</longitude>
+			<latitude>52.66826019887954</latitude>
+			<altitude>8.737733010201881</altitude>
+			<heading>0.485318144831935</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>401.1557110245485</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.666355836573479,52.66821384617377,11.18955868684371</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0B5837EAE63E5B091E58">
+		<name>Vlagduin</name>
+		<LookAt>
+			<longitude>4.648768655811994</longitude>
+			<latitude>52.66470385881427</latitude>
+			<altitude>14.95174629238164</altitude>
+			<heading>0.4853181446562034</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1302.872750929382</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.649218248889602,52.66401614835877,32.5087976294603</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="02E4B720013E5B09EF98">
+		<name>Russenduin</name>
+		<LookAt>
+			<longitude>4.640319998792126</longitude>
+			<latitude>52.66469327716236</latitude>
+			<altitude>23.19265311011351</altitude>
+			<heading>0.4853181440982179</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>684.4740037232987</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.641096087539013,52.66446117003552,25.61692118131734</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0B74790F183E5B0A31A7">
+		<name>Halte Bergen aan Zee</name>
+		<LookAt>
+			<longitude>4.631880553316585</longitude>
+			<latitude>52.66185858270384</latitude>
+			<altitude>8.387228371869744</altitude>
+			<heading>0.4853181439157273</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>225.9312056567433</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_018B2B6DC53F5DD088DE</styleUrl>
+		<Point>
+			<coordinates>4.631842719853243,52.66174393871375,8.438010671727344</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>
